@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Login.css";
+import { useNavigate} from 'react-router-dom';
 
 function Login() {
-  // React States
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [users, setUsers] = useState([]);
 
+  const [errorMessages, setErrorMessages] = useState({});
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   // User Login info
-    useEffect(() =>{
-        axios.get('https://jsonplaceholder.typicode.com/users')
-        .then(res=> {
-            const {data} = res;
-            setUsers(data);
-        })
-    },[]);
+  useEffect(() => {
+    axios.get('https://jsonplaceholder.typicode.com/users')
+      .then(res => {
+        const { data } = res;
+        setUsers(data);
+      })
+  }, []);
 
   const errors = {
     uname: "invalid username",
@@ -38,7 +38,10 @@ function Login() {
         // Invalid password
         setErrorMessages({ name: "pass", message: errors.pass });
       } else {
-        setIsSubmitted(true);
+        localStorage.setItem('userId', userData.id);
+        localStorage.setItem('name', userData.name);
+        localStorage.setItem('email', userData.email);
+        navigate('home');
       }
     } else {
       // Username not found
@@ -77,7 +80,7 @@ function Login() {
     <div className="app">
       <div className="login-form">
         <div className="title">Sign In</div>
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+        {renderForm}
       </div>
     </div>
   );

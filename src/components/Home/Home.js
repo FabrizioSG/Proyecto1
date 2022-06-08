@@ -1,85 +1,35 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect} from "react";
+import axios from "axios";
 import "./Home.css";
 
 function Home() {
-  // React States
-  const [errorMessages, setErrorMessages] = useState({});
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   // User Login info
-  const database = [
-    {
-      username: "user1",
-      password: "pass1"
-    },
-    {
-      username: "user2",
-      password: "pass2"
-    }
-  ];
+  
+  const [albums, setAlbums] = useState([]);
 
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password"
-  };
+  useEffect(() => {
+    axios.get("https://jsonplaceholder.typicode.com/albums").then((res) => {
+      const { data } = res;
 
-  const handleSubmit = (event) => {
-    //Prevent page reload
-    event.preventDefault();
-
-    var { uname, pass } = document.forms[0];
-
-    // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
-
-    // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        setIsSubmitted(true);
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
-    }
-  };
-
-  // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
-
-  // JSX code for login form
-  const renderForm = (
-    <div className="form">
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
-          <label>HOME </label>
-          <input type="text" name="uname" required />
-          {renderErrorMessage("uname")}
-        </div>
-        <div className="input-container">
-          <label>Password </label>
-          <input type="password" name="pass" required />
-          {renderErrorMessage("pass")}
-        </div>
-        <div className="button-container">
-          <input type="submit" />
-        </div>
-      </form>
-    </div>
-  );
-
+      const userAlbums = data.filter(album => album.userId.toString() === localStorage.getItem('user'));
+      setAlbums(userAlbums);
+    });
+  }, []);
+  
+  
+  
   return (
-    <div className="app">
-      <div className="login-form">
-        <div className="title">Sign In</div>
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
-      </div>
+    <div>
+      
+      {albums[0] ? (
+        <ul>
+          {albums.map((album) => (
+            <li key={album.id}>{album.title}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>Loading...</p>)}
     </div>
   );
 }
