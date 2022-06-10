@@ -4,6 +4,11 @@ import "./Home.css";
 import { Link } from 'react-router-dom';
 
 function Home() {
+
+  localStorage.setItem('userId', 1);
+  localStorage.setItem('name', 'Leanne Graham');
+  localStorage.setItem('email', 'Sincere@april.biz');
+
   const [name, setName] = useState('');
   const [albums, setAlbums] = useState([]);
   const [filteredAlbums, setFilteredAlbums] = useState([]);

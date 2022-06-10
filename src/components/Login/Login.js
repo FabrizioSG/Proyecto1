@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Login.css";
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
 
@@ -30,7 +30,7 @@ function Login() {
     var { uname, pass } = document.forms[0];
 
     // Find user login info
-    const userData = users.find((user) => user.email === uname.value);
+    const userData = users.find((user) => user.email === uname.value || user.username === uname.value);
 
     // Compare user info
     if (userData) {
@@ -60,17 +60,17 @@ function Login() {
     <div className="form">
       <form onSubmit={handleSubmit}>
         <div className="input-container">
-          <label>Username </label>
-          <input type="text" name="uname" required />
+          {/* <label>Email or username </label> */}
+          <input type="text" name="uname" placeholder="Email or username" required />
           {renderErrorMessage("uname")}
         </div>
         <div className="input-container">
-          <label>Password </label>
-          <input type="password" name="pass" required />
+          {/* <label>Password </label> */}
+          <input type="password" name="pass" placeholder="Password" required />
           {renderErrorMessage("pass")}
         </div>
         <div className="button-container">
-          <input type="submit" />
+          <input type="submit" value="Log In" />
         </div>
       </form>
     </div>
@@ -79,7 +79,7 @@ function Login() {
   return (
     <div className="app">
       <div className="login-form">
-        <div className="title">Sign In</div>
+        <div className="title">Galería</div>
         {renderForm}
       </div>
     </div>
