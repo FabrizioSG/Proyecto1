@@ -78,7 +78,7 @@ function Login() {
 
   return (
     <div className="app">
-      <div className="login-form" s>
+      <div className="login-form">
         <div className="title">Galería</div>
         {renderForm}
       </div>
