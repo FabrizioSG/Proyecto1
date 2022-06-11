@@ -1,10 +1,11 @@
 import {useParams} from "react-router-dom";
 import React, { useState, useEffect} from "react";
 import axios from "axios";
+import "./Album.css"
 
 const Album = () => {
 
-    const {id} = useParams();
+    const {albumId} = useParams();
     const [photos, setPhotos] = useState([]);
 
 
@@ -12,32 +13,33 @@ const Album = () => {
     axios.get("https://jsonplaceholder.typicode.com/photos").then((res) => {
       const { data } = res;
 
-      const albumPhotos = data.filter(photo => photo.albumId.toString() === id);
+      const albumPhotos = data.filter(photo => photo.albumId.toString() === albumId);
       setPhotos(albumPhotos);
 
     });
-  },[id]);
+  },[albumId]);
 
     return (
-        <div className="container">
-      <input
-        type="search"
-        className="input"
-        placeholder="Filter photos by title"
-      />
+      <div className="container">
+        <input
+          type="search"
+          className="input"
+          placeholder="Filter photos by title"
+        />
 
-      <div className="photo-list">
-        {photos && photos.length > 0 ? (
-          photos.map((photo) => (
-            <li key={photo.id} className="album">
-              <span className="user-id">{photo.title}</span>
-            </li>
-          ))
-        ) : (
-          <h1>No results found!</h1>
-        )}
+        <div className="photo-list">
+          {photos && photos.length > 0 ? (
+            photos.map((photo) => (
+              <div key={photo.id} className="photo-array">
+                <img className="photo" src={ photo.thumbnailUrl } title={ photo.title } alt={ photo.title } />
+                <p className="photo-id">{photo.title}</p>
+              </div>
+            ))
+          ) : (
+            <h1>No results found!</h1>
+          )}
+        </div>
       </div>
-    </div>
     );
 };
 
