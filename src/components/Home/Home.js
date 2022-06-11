@@ -18,7 +18,7 @@ function Home() {
     axios.get("https://jsonplaceholder.typicode.com/albums").then((res) => {
       const { data } = res;
 
-      const userAlbums = data.filter(album => album.userId.toString() === localStorage.getItem('user'));
+      const userAlbums = data.filter(album => album.userId.toString() === localStorage.getItem('userId'));
       setAlbums(userAlbums);
       setFilteredAlbums(userAlbums)
 
