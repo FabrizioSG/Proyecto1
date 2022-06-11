@@ -20,7 +20,7 @@ function Home() {
 
       const userAlbums = data.filter(album => album.userId.toString() === localStorage.getItem('userId'));
       setAlbums(userAlbums);
-      setFilteredAlbums(userAlbums)
+      setFilteredAlbums(userAlbums);
 
     });
   },[]);
@@ -31,8 +31,8 @@ function Home() {
     if(keyword===''){
         setAlbums(albums)
     }else if (keyword !== '') {
-      const results = filteredAlbums.filter((album) => {
-        return album.title.toLowerCase().startsWith(keyword.toLowerCase());
+      const results = albums.filter((album) => {
+        return album.title.toLowerCase().includes(keyword.toLowerCase());
         // Use the toLowerCase() method to make it case-insensitive
       });
       setFilteredAlbums(results);
