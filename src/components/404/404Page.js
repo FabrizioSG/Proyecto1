@@ -8,12 +8,11 @@ const NotFound = () => (
   <div class="pantallaError center">
     <div class="col s12 m12 l12" style={{ textAlign: 'center' }}>
         <img src={error} alt="logo" style={{ height: "30%", width: "30%" }} />
-        <img src={error} alt="logo" style={{ height: "20%", width: "20%" }} />
-      
+        <h5>Oops, this page does not exist!</h5>
+        <br></br>
       <div class="row"></div>
-      {<Link to="/">
-          <button class="btn waves-effect waves-light" type="submit" name="action" style={{ backgroundColor: '#f74615' }}>Volver
-            <i class="material-icons right">send</i>
+      {<Link to="/home">
+          <button class="btn waves-effect waves-light" type="submit" name="action" style={{ backgroundColor: '#f74615' }}>Home
           </button>
         </Link>
         }
