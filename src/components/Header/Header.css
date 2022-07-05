@@ -1,0 +1,9 @@
+.navbar-brand {
+  margin-bottom: 0;
+}
+
+.btn-dark {
+  background-color: transparent;
+  border-color: transparent;
+  text-decoration: underline;
+}

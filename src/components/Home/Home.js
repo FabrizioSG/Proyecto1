@@ -1,18 +1,13 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import "./Home.css";
-import { Link } from 'react-router-dom';
 
 function Home() {
-
-  localStorage.setItem('userId', 1);
-  localStorage.setItem('name', 'Leanne Graham');
-  localStorage.setItem('email', 'Sincere@april.biz');
 
   const [name, setName] = useState('');
   const [albums, setAlbums] = useState([]);
   const [filteredAlbums, setFilteredAlbums] = useState([]);
-
 
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/albums").then((res) => {
