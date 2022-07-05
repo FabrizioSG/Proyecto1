@@ -1,15 +1,22 @@
 import {useParams} from "react-router-dom";
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Album.css"
+import Modal from "../Modal/Modal";
+import Photo from "../Photo/Photo";
 
-const Album = () => {
+function Album() {
 
     const {albumId} = useParams();
     const [name, setName] = useState('');
     const [photos, setPhotos] = useState([]);
     const [filteredPhotos, setFilteredPhotos] = useState([]);
-
+    const [showModal, setShowModal] = useState({
+      title: '',
+      url: '',
+      show: false
+    });
+    //const [photo, setPhoto] = useState(null);
 
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/photos").then((res) => {
@@ -41,6 +48,30 @@ const Album = () => {
 
   }
 
+  const showModalHandler = (title, url) => {
+    setShowModal({
+      title: title,
+      url: url,
+      show: true
+    });
+    //getPhoto(id);
+  }
+
+  const closeModalHandler = () => {
+    setShowModal({
+      title: '',
+      url: '',
+      show: false
+    });
+    //setPhoto(null);
+  };
+
+  /* const getPhoto = (id) => {
+    axios.get(`https://jsonplaceholder.typicode.com/photos?id=${id}`).then(response => {
+      setPhoto(response.data);
+    });
+  } */
+
   return (
     <div className="container">
       <input
@@ -50,13 +81,17 @@ const Album = () => {
         className="input"
         placeholder="Filter photos by title"
       />
-
+      {showModal.show &&
+        <Modal closeModal={closeModalHandler} modalTitle={showModal.title}>
+          <Photo title={showModal.title} url={showModal.url} />
+        </Modal>
+      }
       <div className="photo-list">
-        {filteredPhotos && filteredPhotos.length > 0 ? (
-          filteredPhotos.map((photo) => (
-            <div key={photo.id} className="photo-array">
-              <img className="photo" src={ photo.thumbnailUrl } title={ photo.title } alt={ photo.title } />
-              <p className="photo-id">{photo.title}</p>
+        {filteredPhotos && filteredPhotos.length ? (
+          filteredPhotos.map((p) => (
+            <div key={p.id} className="photo-array">
+              <img className="photo" src={ p.thumbnailUrl } alt={ p.title } onClick={() => {showModalHandler(p.title, p.url)}} />
+              <p className="photo-id">{p.title}</p>
             </div>
           ))
         ) : (
