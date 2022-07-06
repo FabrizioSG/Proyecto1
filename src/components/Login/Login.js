@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
-import "./Login.css";
+import axios from 'axios';
+import './Login.css';
 
 function Login() {
 
@@ -58,7 +58,7 @@ function Login() {
 
   // JSX code for login form
   const renderForm = (
-    <form onSubmit={handleSubmit} className="needs-validation " novalidate>
+    <form onSubmit={handleSubmit} className="needs-validation" novalidate>
       <div className="form-floating has-validation">
         <input type="text" className="form-control" id="floatingInput" name="uname" placeholder="Email or username" required />
         <label for="floatingInput">Email or username</label>
