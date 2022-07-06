@@ -1,14 +1,24 @@
-.show {
-  display: block;
-  background-color: #000000cc;
-}
-
 .modal-content {
-  min-height: 45rem;
+  background-color: #000000cc;
+  align-items: center;
 }
 
 .modal-body {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  height: 85vh;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.modal-body::-webkit-scrollbar {
+  display: none;
+}
+
+.btn-close {
+  background: none;
+  color: #fff;
+  opacity: 1;
+  font-size: 3rem;
+  text-align: right;
+  width: 100%;
+  padding: 0;
+  height: 1.5em;
 }

@@ -1,24 +1,20 @@
 import './Modal.css'
 
-function Modal({modalTitle, closeModal, children}) {
-    console.log('Hi');
-    return (
-        <div className='modal fade show' tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-lg">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title" id="exampleModalLongTitle">{modalTitle}</h5>
-                        <button type="button" className="close" onClick={closeModal} data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div className="modal-body">
-                        {children}
-                    </div>
-                </div>
-            </div>
+function Modal({closeModal, children}) {
+  return (
+    <div className='modal fade show d-block' tabIndex="-1">
+      <div className="modal-dialog modal-fullscreen .modal-dialog-scrollable">
+        <div className="modal-content">
+          <div className="modal-body">
+            <button type="button" className="btn-close" onClick={closeModal} data-bs-dismiss="modal">
+                <span>&times;</span>
+            </button>
+            {children}
+          </div>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
 
 export default Modal;

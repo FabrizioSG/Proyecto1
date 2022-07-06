@@ -1,38 +1,15 @@
-.container {
-    padding-top: 30px;
-    margin: auto;
-    justify-content: center;
-  }
-  
-  .input {
-    padding: 5px 15px;
-    width: 300px;
-  }
-  
-  .photo-list {
-    margin-top: 30px;
-  }
-  
-  .photo-array {
-    float: left;
-    width: 200px;
-    height: 350px;
-  }
+.photo {
+  max-width: 150px;
+}
 
-  .photo {
-    width: 150px;
-    height: 150px;
-    background-color: black;
-    margin: 10px ;
-    padding: 0px;
-    background: #eee;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .photo-id {
-    width: 150px;
-    height: 100px;
-    color: red;
-    margin: 10px;
-  }
+.card-photo {
+  align-items: center;
+  width: 180px;
+  height: 260px;
+  cursor: pointer;
+}
+
+.card-text-photo {
+  padding: 10px 5px;
+  overflow: hidden;
+}

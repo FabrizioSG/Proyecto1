@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./Login.css";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './Login.css';
 
 function Login() {
 
@@ -11,7 +11,8 @@ function Login() {
 
   // User Login info
   useEffect(() => {
-    axios.get('https://jsonplaceholder.typicode.com/users')
+    axios
+      .get('https://jsonplaceholder.typicode.com/users')
       .then(res => {
         const { data } = res;
         setUsers(data);
@@ -19,8 +20,8 @@ function Login() {
   }, []);
 
   const errors = {
-    uname: "invalid username",
-    pass: "invalid password"
+    uname: "Invalid username",
+    pass: "Invalid password"
   };
 
   const handleSubmit = (event) => {
@@ -52,34 +53,30 @@ function Login() {
   // Generate JSX code for error message
   const renderErrorMessage = (name) =>
     name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
+      <div className="invalid-feedback">{errorMessages.message}</div>
     );
 
   // JSX code for login form
   const renderForm = (
-    <div className="form">
-      <form onSubmit={handleSubmit}>
-        <div className="input-container">
-          {/* <label>Email or username </label> */}
-          <input type="text" name="uname" placeholder="Email or username" required />
-          {renderErrorMessage("uname")}
-        </div>
-        <div className="input-container">
-          {/* <label>Password </label> */}
-          <input type="password" name="pass" placeholder="Password" required />
-          {renderErrorMessage("pass")}
-        </div>
-        <div className="button-container">
-          <input type="submit" value="Log In" />
-        </div>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className="needs-validation" novalidate>
+      <div className="form-floating has-validation">
+        <input type="text" className="form-control" id="floatingInput" name="uname" placeholder="Email or username" required />
+        <label for="floatingInput">Email or username</label>
+        {renderErrorMessage("uname")}
+      </div>
+      <div className="form-floating has-validation">
+        <input type="password" className="form-control" id="floatingPassword" name="pass" placeholder="Password" required />
+        <label for="floatingPassword">Password</label>
+        {renderErrorMessage("pass")}
+      </div>
+      <button className="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+    </form>
   );
 
   return (
-    <div className="app">
-      <div className="login-form">
-        <div className="title">Galería</div>
+    <div className="text-center">
+      <div className="form-signin">
+        <h1 className="title h3 mb-4 fw-normal">Galería</h1>
         {renderForm}
       </div>
     </div>
