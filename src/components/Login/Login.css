@@ -8,6 +8,9 @@
     height: 100vh;
     font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     background-color: #f8f9fd;
+    background: url("https://images-cdn.welcomesoftware.com/Zz0zZTliMjQ4MzhlNGExMWViYmJiMjFiZTI2ZWNmN2MzZA==");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   
   input[type="text"],
@@ -66,4 +69,3 @@
     gap: 8px;
     margin: 10px;
   }
-  
