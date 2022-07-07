@@ -17,6 +17,10 @@ const  ProtectedRoutes=({children}) =>{
 
   const auth=useAuth()
 
+  if(!auth){
+    alert("You need to be logged in to enter this page");
+  };
+
   return auth ? children : <Navigate to="/" />;
 }
 
