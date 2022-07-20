@@ -59,6 +59,8 @@ function Login() {
         {renderErrorMessage("pass")}
       </div>
       <button className="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+      <p>No acount yet?</p>
+      <button  className="w-100 btn btn-lg btn-primary" onClick={() => navigate('register')}>Register</button>
     </form>
   );
 

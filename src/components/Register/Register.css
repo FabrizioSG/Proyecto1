@@ -1,0 +1,26 @@
+.text-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: auto;
+  background-color: #fff;
+}
+
+.form-floating {
+  padding-bottom: 1rem;
+}
+
+.invalid-feedback {
+  display: block;
+  text-align: left;
+}
