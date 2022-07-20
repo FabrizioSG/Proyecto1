@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Login.css';
@@ -6,48 +6,37 @@ import './Login.css';
 function Login() {
 
   const [errorMessages, setErrorMessages] = useState({});
-  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
 
-  // User Login info
-  useEffect(() => {
-    axios
-      .get('https://jsonplaceholder.typicode.com/users')
-      .then(res => {
-        const { data } = res;
-        setUsers(data);
-      })
-  }, []);
-
-  const errors = {
-    uname: "Invalid username",
-    pass: "Invalid password"
-  };
 
   const handleSubmit = (event) => {
     //Prevent page reload
     event.preventDefault();
 
     var { uname, pass } = document.forms[0];
-
-    // Find user login info
-    const userData = users.find((user) => user.email === uname.value || user.username === uname.value);
-
-    // Compare user info
-    if (userData) {
-      if (userData.address.zipcode !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
-      } else {
-        localStorage.setItem('userId', userData.id);
-        localStorage.setItem('name', userData.name);
-        localStorage.setItem('email', userData.email);
-        navigate('home');
-      }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
+    const email = uname.value;
+    const password = pass.value;
+    try{
+      axios
+      .post("http://localhost:3010/api/users/login", {
+        email,
+        password,
+      })
+      .then((response) => {
+        if (response.data.message === "OK") {
+          const jwt = response.data.data.token;
+          localStorage.setItem('token',jwt);
+          navigate('home');
+        }
+        else{
+          alert(response.data);
+        }
+      });
+    }catch(err){
+      alert(err);
     }
+    
+   
   };
 
   // Generate JSX code for error message

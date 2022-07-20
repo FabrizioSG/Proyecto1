@@ -5,8 +5,8 @@ import {Navigate} from 'react-router-dom'
 
 
 const useAuth=()=>{
-  const user=localStorage.getItem('userId')
-  if(user){
+  const token=localStorage.getItem('token')
+  if(token){
     return true
   } else {
     return false
