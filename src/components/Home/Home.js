@@ -11,12 +11,16 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get('https://jsonplaceholder.typicode.com/albums')
+      .get('http://localhost:3010/api/albums',{
+        headers: {
+          'x-access-token': localStorage.getItem('token')
+        }
+      })
       .then((res) => {
+        console.log(res);
         const { data } = res;
-        const userAlbums = data.filter(album => album.userId.toString() === localStorage.getItem('userId'));
-        setAlbums(userAlbums);
-        setFilteredAlbums(userAlbums);
+        setAlbums(data.data);
+        setFilteredAlbums(data.data);
     });
   },[]);
   
@@ -37,7 +41,9 @@ function Home() {
   }
   
   return (
+    
     <div className="container">
+      
       <input
         type="search"
         className="form-control me-2"
@@ -46,6 +52,7 @@ function Home() {
         placeholder="Search albums"
       />
 
+    
       <div className="album-list">
         {filteredAlbums && filteredAlbums.length ? (
           filteredAlbums.map((album) => (

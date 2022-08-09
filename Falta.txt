@@ -1,0 +1,7 @@
+Mostrar albums y fotos:
+    El request se hace, la data esta en el state pero falta mostrarla
+
+Boton y funcion de agregar foto y album
+
+Funcion de reset password:
+    Crear boton en login y que salte un modal para pedir correo y enviarlo

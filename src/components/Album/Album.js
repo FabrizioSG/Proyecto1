@@ -19,12 +19,15 @@ function Album() {
 
   useEffect(() => {
     axios
-      .get("https://jsonplaceholder.typicode.com/photos")
+      .get(`http://localhost:3010/api/photos/${albumId}`,{
+        headers: {
+          'x-access-token': localStorage.getItem('token')
+        }
+      })
       .then((res) => {
         const { data } = res;
-        const userPhotos = data.filter(photo => photo.albumId.toString() === albumId);
-        setPhotos(userPhotos);
-        setFilteredPhotos(userPhotos);
+        setPhotos(data.data);
+        setFilteredPhotos(data.data);
     });
   }, [albumId]);
 
