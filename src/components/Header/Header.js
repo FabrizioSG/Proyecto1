@@ -7,13 +7,13 @@ const Header = () => {
     
   const navigate = useNavigate();
   
+  if(localStorage.getItem('token')){
     var token = localStorage.getItem('token');
     var decoded = jwt_decode(token);
+  }  
     
   const logOut = () => {
-    localStorage.removeItem('userId');
-    localStorage.removeItem('name');
-    localStorage.removeItem('email');
+    localStorage.removeItem('token');
     navigate('/');
   }
 

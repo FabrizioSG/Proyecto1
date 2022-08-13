@@ -37,14 +37,13 @@ function Register() {
         gender,
         birthday
       })
+      .catch(function (error) {
+        alert(error.response.data.message)
+      })
       .then((response) => {
-        console.log(response);
         if (response.data.message === "Created") {
           alert("User Created")
           navigate('/');
-        }
-        else{
-          alert(response.data);
         }
       });
     }catch(err){

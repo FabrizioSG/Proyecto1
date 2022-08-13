@@ -22,14 +22,14 @@ function Login() {
         email,
         password,
       })
+      .catch(function (error){
+        alert(error.response.data.data);
+      })
       .then((response) => {
         if (response.data.message === "OK") {
           const jwt = response.data.data.token;
           localStorage.setItem('token',jwt);
           navigate('home');
-        }
-        else{
-          alert(response.data);
         }
       });
     }catch(err){
@@ -59,8 +59,11 @@ function Login() {
         {renderErrorMessage("pass")}
       </div>
       <button className="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
-      <p>No acount yet?</p>
+      <p></p>
       <button  className="w-100 btn btn-lg btn-primary" onClick={() => navigate('register')}>Register</button>
+      <p></p>
+      <button  className="w-100 btn btn-lg btn-primary" onClick={() => navigate('forgotPassword')}>Forgot password?</button>
+
     </form>
   );
 
