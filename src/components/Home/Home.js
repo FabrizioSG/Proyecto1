@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Home.css';
 
@@ -8,6 +8,7 @@ function Home() {
   const [name, setName] = useState('');
   const [albums, setAlbums] = useState([]);
   const [filteredAlbums, setFilteredAlbums] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -17,12 +18,13 @@ function Home() {
         }
       })
       .then((res) => {
-        console.log(res);
         const { data } = res;
         setAlbums(data.data);
         setFilteredAlbums(data.data);
     });
   },[]);
+
+  console.log(localStorage.getItem('token'))
   
   const filter = (e) => {
     const keyword = e.target.value;
@@ -39,25 +41,55 @@ function Home() {
     }
     setName(keyword);
   }
+
+  const handleDelete = (albumId) => {
+    try{
+      axios
+      .delete(`http://localhost:3010/api/albums/${albumId}`, {
+        headers: {
+          'x-access-token': localStorage.getItem('token')
+        }
+      })
+      .catch(function (error) {
+        alert(error.response.data.message);
+      })
+      .then((response) => {
+        console.log(response.data.message);
+        if (response.data.message === 'OK') {
+          alert('Album Deleted');
+          setAlbums(albums);
+        }
+      });
+    } catch(err) {
+      alert(err);
+    }
+  }
   
   return (
     
     <div className="container">
       
-      <input
-        type="search"
-        className="form-control me-2"
-        value={name}
-        onChange={filter}
-        placeholder="Search albums"
-      />
+      <div className="d-flex justify-content-between">
+        <input
+          type="search"
+          className="form-control me-2"
+          value={name}
+          onChange={filter}
+          placeholder="Search albums"
+        />
+        <button type="button" className="btn btn-lg btn-primary" onClick={() => navigate('/home/createAlbum')}>New Album</button>
+      </div>
 
     
       <div className="album-list">
         {filteredAlbums && filteredAlbums.length ? (
           filteredAlbums.map((album) => (
-            <div key={album.id} className="card shadow-sm">
-              <Link className="card-text" to={`/albums/${album.id}`}>{album.title}</Link>
+            <div key={album._id} className="card shadow-sm d-flex justify-content-between">
+              <Link className="card-text" to={`/albums/${album._id}`}>{album.name}</Link>
+              <div>
+                <button type="button" className="btn btn-warning mt-2" onClick={() => navigate(`/home/${album._id}/editAlbum`, {state: {albumId: album._id, name: album.name, description: album.description}})}>Edit</button>
+                <button type="button" className="btn btn-danger mt-2" onClick={() => handleDelete(album._id)}>Delete</button>
+              </div>
             </div>
           ))
         ) : (
