@@ -23,8 +23,6 @@ function Home() {
         setFilteredAlbums(data.data);
     });
   },[]);
-
-  console.log(localStorage.getItem('token'))
   
   const filter = (e) => {
     const keyword = e.target.value;
@@ -54,7 +52,6 @@ function Home() {
         alert(error.response.data.message);
       })
       .then((response) => {
-        console.log(response.data.message);
         if (response.data.message === 'OK') {
           alert('Album Deleted');
           setAlbums(albums);
@@ -87,7 +84,7 @@ function Home() {
             <div key={album._id} className="card shadow-sm d-flex justify-content-between">
               <Link className="card-text" to={`/albums/${album._id}`}>{album.name}</Link>
               <div>
-                <button type="button" className="btn btn-warning mt-2" onClick={() => navigate(`/home/${album._id}/editAlbum`, {state: {albumId: album._id, name: album.name, description: album.description}})}>Edit</button>
+                <button type="button" className="btn btn-warning mt-2" onClick={() => navigate(`/home/${album._id}/editAlbum`)}>Edit</button>
                 <button type="button" className="btn btn-danger mt-2" onClick={() => handleDelete(album._id)}>Delete</button>
               </div>
             </div>

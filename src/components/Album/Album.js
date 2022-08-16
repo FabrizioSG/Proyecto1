@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Album.css'
 import Modal from '../Modal/Modal';
 import Photo from '../Photo/Photo';
 
 function Album() {
-
+  const navigate = useNavigate();
   const { albumId } = useParams();
   const [name, setName] = useState('');
   const [photos, setPhotos] = useState([]);
@@ -30,7 +30,7 @@ function Album() {
         setFilteredPhotos(data.data);
     });
   }, [albumId]);
-
+  
   const filter = (e) => {
     const keyword = e.target.value;
 
@@ -62,16 +62,41 @@ function Album() {
       show: false
     });
   };
+  const handleDelete = (photoId) => {
+    try{
+      axios
+      .delete(`http://localhost:3010/api/photos/${photoId}`, {
+        headers: {
+          'x-access-token': localStorage.getItem('token')
+        }
+      })
+      .catch(function (error) {
+        alert(error.response.data.message);
+      })
+      .then((response) => {
+        if (response.data.message === 'OK') {
+          alert('Photo Deleted');
+          setPhotos(photos);
+        }
+      });
+    } catch(err) {
+      alert(err);
+    }
+  }
 
   return (
     <div className="container">
-      <input
-        type="search"
-        className="form-control me-2"
-        value={name}
-        onChange={filter}
-        placeholder="Search photos"
-      />
+      
+      <div className="d-flex justify-content-between">
+        <input
+          type="search"
+          className="form-control me-2"
+          value={name}
+          onChange={filter}
+          placeholder="Search photos"
+        />
+        <button type="button" className="btn btn-lg btn-primary" onClick={() => navigate(`/home/${albumId}/createPhoto`)}>New Photo</button>
+      </div>
 
       {showModal.show &&
         <Modal closeModal={closeModalHandler}>
@@ -82,10 +107,14 @@ function Album() {
       <div className="row">
         {filteredPhotos && filteredPhotos.length ? (
           filteredPhotos.map((photo) => (
-            <div key={photo.id} className='col'>
+            <div key={photo._id} className='col'>
               <div className="card card-photo shadow-sm">
-                <img className="photo bd-placeholder-img card-img-top" src={ photo.thumbnailUrl } alt={ photo.title } onClick={() => {showModalHandler(photo.title, photo.url)}} />
-                <p className="card-text card-text-photo">{photo.title}</p>
+                <img className="photo bd-placeholder-img card-img-top" src={ photo.URL } alt={ photo.name } onClick={() => {showModalHandler(photo.name, photo.URL)}} />
+                <p className="card-text card-text-photo">{photo.name}</p>
+                <div>
+                <button type="button" className="btn btn-warning mt-2" onClick={() => navigate(`/home/${photo._id}/editPhoto`)}>Edit</button>
+                <button type="button" className="btn btn-danger mt-2" onClick={() => handleDelete(photo._id)}>Delete</button>
+              </div>
               </div>
             </div>
           ))

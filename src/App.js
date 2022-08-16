@@ -11,7 +11,8 @@ import Album from './components/Album/Album.js';
 import ProtectedRoutes from './components/Protected/protectedRoutes.js';
 import Register from './components/Register/Register.js';
 import ForgotPassword from './components/Forgot Password/ForgotPassword.js';
-
+import CreatePhoto from './components/Photo/CreatePhoto.js';
+import EditPhoto from './components/Photo/EditPhoto.js';
 function App() {
   return (
     <>
@@ -25,6 +26,8 @@ function App() {
         <Route exact path="/home" element={ <ProtectedRoutes><Home /></ProtectedRoutes>} />
         <Route exact path="/home/createAlbum" element={ <ProtectedRoutes><CreateAlbum /></ProtectedRoutes>} />
         <Route exact path="/home/:albumId/editAlbum" element={ <ProtectedRoutes><EditAlbum /></ProtectedRoutes>} />
+        <Route exact path="/home/:albumId/createPhoto" element={ <ProtectedRoutes><CreatePhoto /></ProtectedRoutes>} />
+        <Route exact path="/home/:photoId/editPhoto" element={ <ProtectedRoutes><EditPhoto /></ProtectedRoutes>} />
         <Route exact path="/albums/:albumId" element={<ProtectedRoutes><Album /></ProtectedRoutes>} />
         <Route exact path="*" element={<NotFound />} />
       </Routes>
