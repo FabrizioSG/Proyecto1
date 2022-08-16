@@ -16,12 +16,30 @@
 }
 
 .card {
+  height: 75px;
+  display: block;
+  text-align: left;
   background-color: #f8f9fa;
   margin: 10px 0;
-  padding: 15px 10px;
+  padding: 10px 10px;
 }
 
 .card-text {
+  margin: 0 10px;
   color: #212529;
   text-decoration: none;
+}
+
+.buttons {
+  float: right;
+}
+
+.btn-warning {
+  width: 80px;
+  margin-right: 5px;
+}
+
+.btn-danger {
+  width: 80px;
+  margin-left: 5px;
 }

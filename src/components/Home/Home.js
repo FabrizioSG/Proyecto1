@@ -81,9 +81,9 @@ function Home() {
       <div className="album-list">
         {filteredAlbums && filteredAlbums.length ? (
           filteredAlbums.map((album) => (
-            <div key={album._id} className="card shadow-sm d-flex justify-content-between">
+            <div key={album._id} className="card shadow-sm">
               <Link className="card-text" to={`/albums/${album._id}`}>{album.name}</Link>
-              <div>
+              <div className='buttons'>
                 <button type="button" className="btn btn-warning mt-2" onClick={() => navigate(`/home/${album._id}/editAlbum`)}>Edit</button>
                 <button type="button" className="btn btn-danger mt-2" onClick={() => handleDelete(album._id)}>Delete</button>
               </div>
